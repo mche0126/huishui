@@ -6,7 +6,7 @@ export const option = (xData: string[], yData: number[]) => {
     tooltip: {
       trigger: 'axis',
       axisPointer: {
-        animation: true,
+        animation: false,
       },
     },
     legend: {
@@ -35,7 +35,7 @@ export const option = (xData: string[], yData: number[]) => {
         realtime: true,
         start: 0,
         end: 100,
-        xAxisIndex: [0, 1],
+        xAxisIndex: [0, 1, 2],
       },
       {
         show: true,
