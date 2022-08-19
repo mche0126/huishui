@@ -1,6 +1,6 @@
 // import logo from './logo.svg'
 import './App.css'
-import { LineChart } from './component/line-chart/LineChart'
+import { LineChart } from './component/Chart'
 
 function App() {
   return (
