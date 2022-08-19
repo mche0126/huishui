@@ -1,12 +1,11 @@
 import * as echarts from 'echarts'
 
 import { option } from './chart-options'
-import { sampleData1, oneDayTimeData } from '../data/sampleData1'
 import { useRef } from 'react'
 import { EChartsResponsiveOption } from 'echarts'
 import { useEffect } from 'react'
 
-export const LineChart = (props: any) => {
+export const Chart = (props: { props: Array<{ xData: string[]; yData: number[] }> }) => {
   const echartContainer = useRef<HTMLDivElement>(null)
   let node = null
   useEffect(() => {
@@ -22,7 +21,6 @@ export const LineChart = (props: any) => {
       // Initialize chart
       const lineChart = echarts.init(node)
       // Add data to options
-      const timeData = oneDayTimeData()
       lineChart.setOption(option(props.props) as EChartsResponsiveOption)
     }
   }, [echartContainer])

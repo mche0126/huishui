@@ -1,5 +1,5 @@
 import './App.css'
-import { LineChart } from './component/Chart'
+import { Chart } from './component/Chart'
 import { sampleData1, oneDayTimeData } from './data/sampleData1'
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
     },
   ]
 
-  return <LineChart props={props} />
+  return <Chart props={props} />
 }
 
 export default App
