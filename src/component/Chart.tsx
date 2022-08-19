@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 
 export const LineChart = () => {
   const echartContainer = useRef<HTMLDivElement>(null)
-  let node = echartContainer.current
+  let node = null
 
   console.log(node)
   useEffect(() => {
@@ -24,7 +24,17 @@ export const LineChart = () => {
       // Initialize chart
       const lineChart = echarts.init(node)
       // Add data to options
-      lineChart.setOption(option(oneDayTimeData(), sampleData1()) as EChartsResponsiveOption)
+      const timeData = oneDayTimeData()
+      lineChart.setOption(
+        option(
+          timeData,
+          sampleData1(),
+          timeData,
+          sampleData1(),
+          timeData,
+          sampleData1(),
+        ) as EChartsResponsiveOption,
+      )
     }
   }, [echartContainer])
 

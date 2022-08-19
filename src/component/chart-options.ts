@@ -1,7 +1,14 @@
 /**
  * Settings for echart
  */
-export const option = (xData: string[], yData: number[]) => {
+export const option = (
+  xData: string[],
+  yData: number[],
+  x1Data: string[],
+  y1Data: number[],
+  x2Data: string[],
+  y2Data: number[],
+) => {
   return {
     tooltip: {
       trigger: 'axis',
@@ -134,7 +141,7 @@ export const option = (xData: string[], yData: number[]) => {
         xAxisIndex: 1,
         yAxisIndex: 1,
         symbolSize: 8,
-        data: yData,
+        data: y1Data,
       },
       {
         name: 'dot',
@@ -142,7 +149,7 @@ export const option = (xData: string[], yData: number[]) => {
         xAxisIndex: 2,
         yAxisIndex: 2,
         symbolSize: 8,
-        data: yData,
+        data: y2Data,
       },
     ],
   }
