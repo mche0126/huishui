@@ -13,14 +13,17 @@ export const LineChart = () => {
   console.log(node)
   useEffect(() => {
     node = echartContainer.current
+    // Check reference got value or not
     if (node) {
+      // Set containner style
       const style = node.style
       style.height = '40vh'
       style.width = '80%'
       style.margin = '0 auto'
+
+      // Initialize chart
       const lineChart = echarts.init(node)
       // Add data to options
-      // console.log(option(oneDayTimeData(), sampleData1()))
       lineChart.setOption(option(oneDayTimeData(), sampleData1()) as EChartsResponsiveOption)
     }
   }, [echartContainer])
