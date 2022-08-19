@@ -6,11 +6,9 @@ import { useRef } from 'react'
 import { EChartsResponsiveOption } from 'echarts'
 import { useEffect } from 'react'
 
-export const LineChart = () => {
+export const LineChart = (props: any) => {
   const echartContainer = useRef<HTMLDivElement>(null)
   let node = null
-
-  console.log(node)
   useEffect(() => {
     node = echartContainer.current
     // Check reference got value or not
@@ -25,16 +23,7 @@ export const LineChart = () => {
       const lineChart = echarts.init(node)
       // Add data to options
       const timeData = oneDayTimeData()
-      lineChart.setOption(
-        option(
-          timeData,
-          sampleData1(),
-          timeData,
-          sampleData1(),
-          timeData,
-          sampleData1(),
-        ) as EChartsResponsiveOption,
-      )
+      lineChart.setOption(option(props.props) as EChartsResponsiveOption)
     }
   }, [echartContainer])
 

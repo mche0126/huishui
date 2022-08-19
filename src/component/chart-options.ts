@@ -1,14 +1,7 @@
 /**
  * Settings for echart
  */
-export const option = (
-  xData: string[],
-  yData: number[],
-  x1Data: string[],
-  y1Data: number[],
-  x2Data: string[],
-  y2Data: number[],
-) => {
+export const option = (props: Array<{ xData: string[]; yData: number[] }>) => {
   return {
     tooltip: {
       trigger: 'axis',
@@ -84,21 +77,21 @@ export const option = (
         boundaryGap: true,
         axisLine: { onZero: true },
         position: 'top',
-        data: xData,
+        data: props[0].xData,
       },
       {
         gridIndex: 1,
         type: 'category',
         boundaryGap: true,
         axisLine: { onZero: true },
-        data: xData,
+        data: props[1].xData,
       },
       {
         gridIndex: 2,
         type: 'category',
         boundaryGap: true,
         axisLine: { onZero: true },
-        data: xData,
+        data: props[2].xData,
       },
     ],
     yAxis: [
@@ -108,7 +101,6 @@ export const option = (
         nameGap: 30,
         type: 'value',
         max: 100,
-
         inverse: true,
       },
       {
@@ -132,8 +124,7 @@ export const option = (
       {
         name: 'bar',
         type: 'bar',
-        symbolSize: 8,
-        data: yData,
+        data: props[0].yData,
       },
       {
         name: 'line',
@@ -141,7 +132,7 @@ export const option = (
         xAxisIndex: 1,
         yAxisIndex: 1,
         symbolSize: 8,
-        data: y1Data,
+        data: props[1].yData,
       },
       {
         name: 'dot',
@@ -149,7 +140,7 @@ export const option = (
         xAxisIndex: 2,
         yAxisIndex: 2,
         symbolSize: 8,
-        data: y2Data,
+        data: props[2].yData,
       },
     ],
   }
