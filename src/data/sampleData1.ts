@@ -6,7 +6,7 @@
 export const sampleData1 = (): number[] =>
   Array(60 * 24)
     .fill(100)
-    .map((e) => Math.floor(Math.random() * e))
+    .map((e) => Math.round(Math.random() * e))
 
 /**
  * Generate 1 day time with an interval of 1 min
