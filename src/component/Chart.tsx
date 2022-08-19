@@ -1,7 +1,7 @@
 import * as echarts from 'echarts'
 
-import { option } from './lineChartOptions'
-import { sampleData1, oneDayTimeData } from '../../data/sampleData1'
+import { option } from './chart-options'
+import { sampleData1, oneDayTimeData } from '../data/sampleData1'
 import { useRef } from 'react'
 import { EChartsResponsiveOption } from 'echarts'
 import { useEffect } from 'react'
@@ -17,7 +17,7 @@ export const LineChart = () => {
     if (node) {
       // Set containner style
       const style = node.style
-      style.height = '40vh'
+      style.height = '100vh'
       style.width = '80%'
       style.margin = '0 auto'
 
