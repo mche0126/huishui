@@ -15,30 +15,32 @@ function App() {
 
   return (
     <>
-      <BarChart
-        xData={dayData}
-        yData={sampleData}
-        showTip={showTip}
-        x={x}
-        setShowTip={setShowTip}
-        setX={setX}
-      />
-      <LineChart
-        xData={dayData}
-        yData={sampleData}
-        showTip={showTip}
-        x={x}
-        setShowTip={setShowTip}
-        setX={setX}
-      />
-      <ScatterChart
-        xData={dayData}
-        yData={sampleData}
-        showTip={showTip}
-        x={x}
-        setShowTip={setShowTip}
-        setX={setX}
-      />
+      <div>
+        <BarChart
+          xData={dayData}
+          yData={sampleData}
+          showTip={showTip}
+          x={x}
+          setShowTip={setShowTip}
+          setX={setX}
+        />
+        <LineChart
+          xData={dayData}
+          yData={sampleData}
+          showTip={showTip}
+          x={x}
+          setShowTip={setShowTip}
+          setX={setX}
+        />
+        <ScatterChart
+          xData={dayData}
+          yData={sampleData}
+          showTip={showTip}
+          x={x}
+          setShowTip={setShowTip}
+          setX={setX}
+        />
+      </div>
     </>
   )
 }

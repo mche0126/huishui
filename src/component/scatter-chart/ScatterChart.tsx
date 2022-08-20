@@ -18,7 +18,7 @@ export const ScatterChart = (props: OptionProps) => {
       // Set containner style
       const style = node.style
       style.height = '250px'
-      style.width = '100%'
+      style.width = '100vw'
       style.margin = '0 auto'
       node.id = 'echart'
 

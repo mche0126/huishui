@@ -73,6 +73,7 @@ export const option = (props: OptionProps) => {
     series: {
       name: 'scatter',
       type: 'scatter',
+      symbolSize: 5,
       data: props.yData,
     },
   }
