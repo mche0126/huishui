@@ -40,15 +40,6 @@ export const option = (props: OptionProps) => {
         },
       ],
     },
-    dataZoom: [
-      {
-        show: true,
-        realtime: true,
-        type: 'inside',
-        start: 0,
-        end: 100,
-      },
-    ],
     grid: {
       top: 50,
       left: 50,
@@ -73,6 +64,7 @@ export const option = (props: OptionProps) => {
     series: {
       name: 'line',
       type: 'line',
+      color: '#9BF',
       data: props.yData,
     },
   }
