@@ -6,7 +6,7 @@ import { oneDayTimeData, sampleData1 } from '../data/sampleData1'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/Chart',
+  title: 'Huishui/Chart',
   component: Chart,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 }
