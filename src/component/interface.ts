@@ -1,3 +1,5 @@
+import React from "react"
+
 /**
  *  Chart Props
  */
@@ -6,6 +8,7 @@ export interface OptionProps {
   yData: number[]
   showTip: boolean
   x: number | undefined
+  canvas: React.RefObject<HTMLDivElement>
   setShowTip: React.Dispatch<React.SetStateAction<boolean>>
-  setX: React.Dispatch<React.SetStateAction<number | undefined>>
+  data: React.MutableRefObject<number | undefined>
 }

@@ -12,7 +12,7 @@ export const BarChart = (props: OptionProps) => {
   let node: HTMLDivElement | HTMLCanvasElement | null = null
   let barChart: echarts.EChartsType | null = null
   useEffect(() => {
-    node = echartContainer.current
+    node = props.canvas.current
     // Check reference got value or not
     if (node) {
       // Set containner style
@@ -27,42 +27,24 @@ export const BarChart = (props: OptionProps) => {
 
       // Add data to options
       const inputProps = option(props)
-      inputProps && barChart && barChart.setOption(inputProps as EChartsResponsiveOption)
-      const barChartCanvas = node?.querySelector('canvas')
-      barChartCanvas?.addEventListener('mousemove', (e) => {
-        props.setShowTip(true)
-        props.setX(e.x)
-        showTip(barChart!, props.x!)
-      })
-      barChartCanvas?.addEventListener('mouseout', () => {
-        props.setShowTip(false)
-        hideTip(barChart!)
-      })
-      return () => {
-        barChartCanvas?.removeEventListener('mousemove', (e) => {
-          console.log(e.x)
-          props.setShowTip(true)
-          props.setX(e.x)
-          showTip(barChart!, props.x!)
-        })
-      }
+      barChart && barChart.setOption(inputProps as EChartsResponsiveOption)
     }
-  }, [echartContainer, props.x])
+  }, [echartContainer, props.data.current])
 
   useEffect(() => {
     // Render tips from other chart trigger
     if (props.showTip) {
-      showTip(barChart!, props.x!)
+      showTip(barChart!, props.data.current!)
       props.setShowTip(true)
     } else {
       hideTip(barChart!)
       props.setShowTip(false)
     }
-  }, [props.x, props.showTip])
+  }, [props.data.current, props.showTip])
 
   return (
     <>
-      <div ref={echartContainer} />
+      <div ref={props.canvas} />
     </>
   )
 }

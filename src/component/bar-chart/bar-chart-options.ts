@@ -15,7 +15,7 @@ export const option = (props: OptionProps) => {
       show: true,
       triggerOn: 'none',
       position: function () {
-        return [props.x, 150]
+        return [props.data.current, 150]
       },
       transitionDurition: 0,
     },

@@ -12,7 +12,7 @@ export const ScatterChart = (props: OptionProps) => {
   let node: HTMLDivElement | HTMLCanvasElement | null = null
   let scatterChart: echarts.EChartsType | null = null
   useEffect(() => {
-    node = echartContainer.current
+    node = props.canvas.current
     // Check reference got value or not
     if (node) {
       // Set containner style
@@ -27,41 +27,24 @@ export const ScatterChart = (props: OptionProps) => {
 
       // Add data to options
       const inputProps = option(props)
-      inputProps && scatterChart && scatterChart.setOption(inputProps as EChartsResponsiveOption)
-      const scatterChartCanvas = node?.querySelector('canvas')
-      scatterChartCanvas?.addEventListener('mousemove', (e) => {
-        props.showTip ? null : props.setShowTip(true)
-        props.x === e.x ? null : props.setX(e.x)
-        showTip(scatterChart!, props.x!)
-      })
-      scatterChartCanvas?.addEventListener('mouseout', () => {
-        props.showTip ? props.setShowTip(false) : null
-        hideTip(scatterChart!)
-      })
-      return () => {
-        scatterChartCanvas?.removeEventListener('mousemove', (e) => {
-          props.showTip ? null : props.setShowTip(true)
-          props.x === e.x ? null : props.setX(e.x)
-          showTip(scatterChart!, props.x!)
-        })
-      }
+      scatterChart && scatterChart.setOption(inputProps as EChartsResponsiveOption)
     }
-  }, [echartContainer, props.x])
+  }, [echartContainer, props.data.current])
 
   useEffect(() => {
     // Render tips from other chart trigger
     if (props.showTip) {
-      showTip(scatterChart!, props.x!)
+      showTip(scatterChart!, props.data.current!)
       props.setShowTip(true)
     } else {
       hideTip(scatterChart!)
       props.setShowTip(false)
     }
-  }, [props.x, props.showTip])
+  }, [props.data.current, props.showTip])
 
   return (
     <>
-      <div ref={echartContainer} />
+      <div ref={props.canvas} />
     </>
   )
 }
