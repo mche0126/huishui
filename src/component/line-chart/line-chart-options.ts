@@ -14,10 +14,6 @@ export const option = (props: OptionProps) => {
       trigger: 'axis',
       show: true,
       triggerOn: 'none',
-      position: function (pt: number[]) {
-        return [props.x, 130]
-      },
-      transitionDurition: 0,
     },
     legend: {
       data: ['line'],

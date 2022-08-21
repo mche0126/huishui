@@ -1,7 +1,4 @@
-import { ChartView } from 'echarts/lib/echarts'
 import { useEffect, useRef, useState } from 'react'
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
-import { cachedDataVersionTag } from 'v8'
 import './App.css'
 import { BarChart } from './component/bar-chart/BarChart'
 
@@ -26,16 +23,18 @@ function App() {
   const scatterCanvas = useRef<HTMLDivElement | null>(null)
 
   const listenerFunctions = (chart: HTMLDivElement) => {
-    const mouseMoveAction = (e: MouseEvent) => {
+    const mouseOverFunction = (e: MouseEvent) => {
       if (e) {
-        setX(e.x)
         setShowTip(true)
-        data.current = e.x
+        data.current = e.x + 20
+        x !== e.x ? setX(e.x) : null
       }
-      console.log(data.current)
     }
-    chart?.addEventListener('mousemove', mouseMoveAction)
-    return () => chart?.removeEventListener('mousemove', mouseMoveAction)
+    chart?.addEventListener('mousemove', mouseOverFunction)
+    chart?.addEventListener('mouseout', () => {
+      setShowTip(false)
+    })
+    return () => chart?.removeEventListener('mousemove', mouseOverFunction)
   }
 
   useEffect(() => {
@@ -46,15 +45,15 @@ function App() {
 
   useEffect(() => {
     listenerFunctions(lineCharts!)
-  }, [lineCharts, x])
+  }, [lineCharts])
 
   useEffect(() => {
     listenerFunctions(barCharts!)
-  }, [barCharts, x])
+  }, [barCharts])
 
   useEffect(() => {
     listenerFunctions(scatterCharts!)
-  }, [scatterCharts, x])
+  }, [scatterCharts])
 
   return (
     <>
@@ -63,7 +62,6 @@ function App() {
           xData={dayData}
           yData={sampleData}
           showTip={showTip}
-          x={x}
           canvas={barCanvas}
           setShowTip={setShowTip}
           data={data}
@@ -72,7 +70,6 @@ function App() {
           xData={dayData}
           yData={sampleData}
           showTip={showTip}
-          x={x}
           canvas={lineCanvas}
           setShowTip={setShowTip}
           data={data}
@@ -81,7 +78,6 @@ function App() {
           xData={dayData}
           yData={sampleData}
           showTip={showTip}
-          x={x}
           canvas={scatterCanvas}
           setShowTip={setShowTip}
           data={data}

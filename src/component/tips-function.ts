@@ -8,6 +8,7 @@ export const showTip = (chart: echarts.EChartsType, x: number) => {
     type: 'showTip',
     x: x,
     y: 150,
+    position: [x, 150],
   })
 }
 

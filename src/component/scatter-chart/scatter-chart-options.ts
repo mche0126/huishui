@@ -15,9 +15,8 @@ export const option = (props: OptionProps) => {
       show: true,
       triggerOn: 'none',
       position: function () {
-        return [props.x, 130]
+        return [props.data.current, 130]
       },
-      transitionDurition: 0,
     },
     legend: {
       data: ['scatter'],
