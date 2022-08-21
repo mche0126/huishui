@@ -1,3 +1,6 @@
+/**
+ *  Chart Props
+ */
 export interface OptionProps {
   xData: string[]
   yData: number[]

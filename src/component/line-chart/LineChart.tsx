@@ -30,16 +30,23 @@ export const LineChart = (props: OptionProps) => {
       inputProps && lineChart && lineChart.setOption(inputProps as EChartsResponsiveOption)
       const lineChartCanvas = node?.querySelector('canvas')
       lineChartCanvas?.addEventListener('mousemove', (e) => {
-        props.showTip ? null : props.setShowTip(true)
-        props.x === e.x ? null : (props.setX(e.x), localStorage.setItem('x', e.x.toString()))
+        props.setShowTip(true)
+        props.setX(e.x)
         showTip(lineChart!, props.x!)
       })
       lineChartCanvas?.addEventListener('mouseout', () => {
-        props.showTip ? (props.setShowTip(false), localStorage.removeItem('x')) : null
+        props.setShowTip(false)
         hideTip(lineChart!)
       })
+      return () => {
+        lineChartCanvas?.removeEventListener('mousemove', (e) => {
+          props.setShowTip(true)
+          props.setX(e.x)
+          showTip(lineChart!, props.x!)
+        })
+      }
     }
-  }, [echartContainer, props])
+  }, [echartContainer, props.x])
 
   useEffect(() => {
     // Render tips from other chart trigger
@@ -50,7 +57,7 @@ export const LineChart = (props: OptionProps) => {
       hideTip(lineChart!)
       props.setShowTip(false)
     }
-  }, [props])
+  }, [props.x, props.showTip])
 
   return (
     <>

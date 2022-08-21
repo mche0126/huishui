@@ -15,7 +15,6 @@ export const option = (props: OptionProps) => {
       show: true,
       triggerOn: 'none',
       position: function (pt: number[]) {
-        console.log(props.x)
         return [props.x, 130]
       },
       transitionDurition: 0,

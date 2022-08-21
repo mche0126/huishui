@@ -28,19 +28,26 @@ export const BarChart = (props: OptionProps) => {
       // Add data to options
       const inputProps = option(props)
       inputProps && barChart && barChart.setOption(inputProps as EChartsResponsiveOption)
-      const lineChartCanvas = node?.querySelector('canvas')
-      lineChartCanvas?.addEventListener('mousemove', (e) => {
-        props.showTip ? null : props.setShowTip(true)
-        props.x === e.x ? null : (props.setX(e.x), localStorage.setItem('x', e.x.toString()))
-        console.log(e.y)
+      const barChartCanvas = node?.querySelector('canvas')
+      barChartCanvas?.addEventListener('mousemove', (e) => {
+        props.setShowTip(true)
+        props.setX(e.x)
         showTip(barChart!, props.x!)
       })
-      lineChartCanvas?.addEventListener('mouseout', () => {
-        props.showTip ? (props.setShowTip(false), localStorage.removeItem('x')) : null
+      barChartCanvas?.addEventListener('mouseout', () => {
+        props.setShowTip(false)
         hideTip(barChart!)
       })
+      return () => {
+        barChartCanvas?.removeEventListener('mousemove', (e) => {
+          console.log(e.x)
+          props.setShowTip(true)
+          props.setX(e.x)
+          showTip(barChart!, props.x!)
+        })
+      }
     }
-  }, [echartContainer, props])
+  }, [echartContainer, props.x])
 
   useEffect(() => {
     // Render tips from other chart trigger
@@ -51,7 +58,7 @@ export const BarChart = (props: OptionProps) => {
       hideTip(barChart!)
       props.setShowTip(false)
     }
-  }, [props])
+  }, [props.x, props.showTip])
 
   return (
     <>

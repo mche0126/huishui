@@ -31,15 +31,22 @@ export const ScatterChart = (props: OptionProps) => {
       const scatterChartCanvas = node?.querySelector('canvas')
       scatterChartCanvas?.addEventListener('mousemove', (e) => {
         props.showTip ? null : props.setShowTip(true)
-        props.x === e.x ? null : (props.setX(e.x), localStorage.setItem('x', e.x.toString()))
+        props.x === e.x ? null : props.setX(e.x)
         showTip(scatterChart!, props.x!)
       })
       scatterChartCanvas?.addEventListener('mouseout', () => {
-        props.showTip ? (props.setShowTip(false), localStorage.removeItem('x')) : null
+        props.showTip ? props.setShowTip(false) : null
         hideTip(scatterChart!)
       })
+      return () => {
+        scatterChartCanvas?.removeEventListener('mousemove', (e) => {
+          props.showTip ? null : props.setShowTip(true)
+          props.x === e.x ? null : props.setX(e.x)
+          showTip(scatterChart!, props.x!)
+        })
+      }
     }
-  }, [echartContainer, props])
+  }, [echartContainer, props.x])
 
   useEffect(() => {
     // Render tips from other chart trigger
@@ -50,7 +57,7 @@ export const ScatterChart = (props: OptionProps) => {
       hideTip(scatterChart!)
       props.setShowTip(false)
     }
-  }, [props])
+  }, [props.x, props.showTip])
 
   return (
     <>
