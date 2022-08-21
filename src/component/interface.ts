@@ -9,5 +9,5 @@ export interface OptionProps {
   showTip: boolean
   canvas: React.RefObject<HTMLDivElement>
   setShowTip: React.Dispatch<React.SetStateAction<boolean>>
-  data: React.MutableRefObject<number | undefined>
+  data: number
 }

@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import { BarChart } from './component/bar-chart/BarChart'
 
 import { LineChart } from './component/line-chart/LineChart'
 import { ScatterChart } from './component/scatter-chart/ScatterChart'
-import { sampleData2, oneDayTimeData, sampleData1 } from './data/sampleData'
+import { sampleData2, oneDayTimeData } from './data/sampleData'
 
 function App() {
   const [showTip, setShowTip] = useState<boolean>(false)
@@ -22,38 +22,41 @@ function App() {
   const lineCanvas = useRef<HTMLDivElement | null>(null)
   const scatterCanvas = useRef<HTMLDivElement | null>(null)
 
-  const listenerFunctions = (chart: HTMLDivElement) => {
-    const mouseOverFunction = (e: MouseEvent) => {
-      if (e) {
-        setShowTip(true)
-        data.current = e.x + 20
-        x !== e.x ? setX(e.x) : null
+  const listenerFunctions = useCallback(
+    (chart: HTMLDivElement) => {
+      const mouseOverFunction = (e: MouseEvent) => {
+        if (e) {
+          setShowTip(true)
+          data.current = e.x
+          x !== e.x ? setX(e.x) : null
+        }
       }
-    }
-    chart?.addEventListener('mousemove', mouseOverFunction)
-    chart?.addEventListener('mouseout', () => {
-      setShowTip(false)
-    })
-    return () => chart?.removeEventListener('mousemove', mouseOverFunction)
-  }
+      chart?.addEventListener('mousemove', mouseOverFunction)
+      chart?.addEventListener('mouseout', () => {
+        setShowTip(false)
+      })
+      return () => chart?.removeEventListener('mousemove', mouseOverFunction)
+    },
+    [x],
+  )
 
   useEffect(() => {
-    setLineChart(lineCanvas.current!)
-    setScatterChart(scatterCanvas.current!)
-    setBarChart(barCanvas.current!)
+    setLineChart(lineCanvas.current ?? document.createElement('div'))
+    setScatterChart(scatterCanvas.current ?? document.createElement('div'))
+    setBarChart(barCanvas.current ?? document.createElement('div'))
   }, [])
 
   useEffect(() => {
-    listenerFunctions(lineCharts!)
-  }, [lineCharts])
+    listenerFunctions(lineCharts ?? document.createElement('div'))
+  }, [lineCharts, listenerFunctions])
 
   useEffect(() => {
-    listenerFunctions(barCharts!)
-  }, [barCharts])
+    listenerFunctions(barCharts ?? document.createElement('div'))
+  }, [barCharts, listenerFunctions])
 
   useEffect(() => {
-    listenerFunctions(scatterCharts!)
-  }, [scatterCharts])
+    listenerFunctions(scatterCharts ?? document.createElement('div'))
+  }, [scatterCharts, listenerFunctions])
 
   return (
     <>
@@ -64,7 +67,7 @@ function App() {
           showTip={showTip}
           canvas={barCanvas}
           setShowTip={setShowTip}
-          data={data}
+          data={data.current ?? 0}
         />
         <LineChart
           xData={dayData}
@@ -72,7 +75,7 @@ function App() {
           showTip={showTip}
           canvas={lineCanvas}
           setShowTip={setShowTip}
-          data={data}
+          data={data.current ?? 0}
         />
         <ScatterChart
           xData={dayData}
@@ -80,7 +83,7 @@ function App() {
           showTip={showTip}
           canvas={scatterCanvas}
           setShowTip={setShowTip}
-          data={data}
+          data={data.current ?? 0}
         />
       </div>
     </>

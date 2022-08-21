@@ -8,21 +8,21 @@ import { hideTip, showTip } from '../tips-function'
 export const LineChart = (props: OptionProps) => {
   const echartContainer = useRef<HTMLDivElement>(null)
 
-  let node: HTMLDivElement | HTMLCanvasElement | null = null
   const lineChart = useRef<echarts.EChartsType | null>(null)
+  const node = useRef<HTMLDivElement | HTMLCanvasElement | null>(null)
   useEffect(() => {
-    node = props.canvas.current
+    node.current = props.canvas.current
     // Check reference got value or not
-    if (node) {
+    if (node.current) {
       // Set containner style
-      const style = node.style
+      const style = node.current.style
       style.height = '250px'
-      style.width = '100%'
+      style.width = '100vw'
       style.margin = '0 auto'
-      node.id = 'echart'
+      node.current.id = 'echart'
 
       // Initialize chart
-      lineChart.current = echarts.init(node)
+      lineChart.current = echarts.init(node.current)
     }
   }, [echartContainer, props.canvas])
 
@@ -30,18 +30,18 @@ export const LineChart = (props: OptionProps) => {
     // Add data to options
     const inputProps = option(props)
     lineChart.current && lineChart.current.setOption(inputProps as EChartsResponsiveOption)
-  }, [props.data.current])
+  }, [props])
 
   useEffect(() => {
     // Render tips from other chart trigger
     if (props.showTip) {
-      showTip(lineChart.current!, props.data.current!)
+      showTip(lineChart.current!, props.data)
       props.setShowTip(true)
     } else {
       hideTip(lineChart.current!)
       props.setShowTip(false)
     }
-  }, [props.data.current, props.showTip])
+  }, [props])
 
   return (
     <>

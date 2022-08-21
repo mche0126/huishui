@@ -15,7 +15,7 @@ export const option = (props: OptionProps) => {
       show: true,
       triggerOn: 'none',
       position: function () {
-        return [props.data.current, 130]
+        return [props.data, 130]
       },
     },
     legend: {
