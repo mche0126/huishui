@@ -14,10 +14,6 @@ export default {
 
 const [showTip, setShowTip] = useState<boolean>(false)
 const Template = (args: OptionProps) => <ScatterChart {...args} />;
-const cursorPosition: any = (event: any): number => {
-  var xCursorPosition = event.clientX;
-  return xCursorPosition
-}
 
 export const Default: ComponentStory<typeof ScatterChart> = Template.bind({});
 Default.args = {

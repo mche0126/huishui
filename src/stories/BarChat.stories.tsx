@@ -15,10 +15,7 @@ export default {
 
 const [showTip, setShowTip] = useState<boolean>(false)
 const Template = (args: OptionProps) => <BarChart {...args} />;
-const cursorPosition: any = (event: any): number => {
-  var xCursorPosition = event.clientX;
-  return xCursorPosition
-}
+
 
 export const Default: ComponentStory<typeof BarChart> = Template.bind({});
 Default.args = {
